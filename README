@@ -1,0 +1,45 @@
+This is the repo for the HTC Holiday and its' variants, AT&T Vivid (US) and HTC Raider (WWE).
+
+The files contained in this repository are for building Android 4.0.X (AKA Ice Cream Sandwich) with CyanogenMod 9.X
+To build correctly, you must also download the proprietary files contained in this project's sister repo (android_vendor_htc_holiday)
+
+Special thanks to IanWizard (testing, kernels, all around awesomeness) and Tiamat (awesome kernel work backporting Linux 3.0's drivers to 2.6.X), without both this project would not exist!
+
+INSTRUCTIONS FOR BUILDING:
+1. Get the CyanogenMod 9 ICS branch checked out to your PC
+2. Download this repo to device/htc/holiday, and download my other repo "android_vendor_htc_holiday" to vendor/htc/holiday
+3. issue ". build/envsetup.sh" then run "lunch full_holiday-eng"
+5. Now that you've got the build environment set up, you're ready to build.
+
+Building is as simple as:
+
+1) For building a FULL android image (takes about 50 mins on a fast computer):
+	"export USE_CCACHE=1; time mka bacon"
+   USE_CCACHE enables the build process to be sped up a lot by caching compiled files (useful if you're "make clean"-ing a lot)
+
+2) For building JUST a recovery image (takes about 15 seconds on my pc):
+	"export USE_CCACHE=1; time mka recoveryimage"
+   (the export statement can be left out if you've set it previously)
+
+3) For building a boot.img only:
+	"export USE_CCACHE=1; time mka bootimage"
+
+4) If you make any changes to any makefiles, you'll have to clean the build output directory, do so with:
+	"make clean"
+   This is a synonym for "make clobber", the two are apparently interchangable.
+
+Once your build finishes, just type "cd $OUT" to be brought to the output directory, you'll find whatever you just built there.
+
+Also, some neat tricks I usually use:
+
+1) "cdev" command
+   From the device/htc/holiday directory, issue: alias cdev="cd `pwd`"
+   Now, wherever you are, you can just type "cdev" to be brought back to the device directory.
+
+2) "croot" command
+   This is automatically added as an alias when you use ". build/envsetup.sh" to set up your build environment.
+   It will bring you back to the root build folder (aka "android")
+
+3) Lots of patience.
+   This one is tricky, you might want to try playing a movie in the background while your bacon comes to a sizzle on your CPU heatsink.
+   (Trust me, you'll find out if your PC's overclock is stable while "mka bacon" runs-- that, and you'll discover truly how fast paint dries.)
